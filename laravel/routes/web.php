@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('test', 'TaskController@retTaskAll');
+
 
 Route::get('/', function () {
     return view('./auth/login');
@@ -20,3 +22,18 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
+//     return view('home');
+// })->name('home');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/home','HomeController@home')->name('home');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/record', function () {
+    return view('record');
+})->name('record');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/measurement', function () {
+    return view('measurement');
+})->name('measurement');
