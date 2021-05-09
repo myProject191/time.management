@@ -11,6 +11,7 @@ export default {
   // mounted：instanceを読み込まれちょっと後に呼び出される。
   mounted() {
     //   ここで、まず必要なデータを引っ張ってくる.
+    this.fetchTasks()
     this.setGantt()
   },
   //サーバから引っ張ってきたデータや、自分で打ち込んだデータを入れていく
@@ -46,6 +47,12 @@ export default {
   },
   //methods：処理を埋め込んで、後で呼び出す。
   methods: {
+    async fetchTasks() {
+        const url = "fetch_task_data"
+        await axios.get(url).then(res => {
+            this.tasks = res.data
+        })
+    },
     setGantt() {
       const length = this.tasks.length
       for(let i = 0; i < length; i++) {
@@ -54,8 +61,9 @@ export default {
     },
     setCoordinate(task) {
       const id = task.id
-      console.log(this.time2coordinate(task.start))
+    //   console.log(this.time2coordinate(task.start))
       this.$refs[id][0].style.left = String(this.time2coordinate(task.start)) + 'px'
+      this.$refs[id][0].style.color = 'red'
     },
     time2coordinate(str) {
       // split：文字列を分割して配列にする。
