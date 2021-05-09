@@ -8,9 +8,12 @@
 </template>
 <script>
 export default {
+  // mounted：instanceを読み込まれちょっと後に呼び出される。
   mounted() {
+    //   ここで、まず必要なデータを引っ張ってくる.
     this.setGantt()
   },
+  //サーバから引っ張ってきたデータや、自分で打ち込んだデータを入れていく
   data() {
     return {
       tasks: [
@@ -41,6 +44,7 @@ export default {
       ]
     }
   },
+  //methods：処理を埋め込んで、後で呼び出す。
   methods: {
     setGantt() {
       const length = this.tasks.length
@@ -54,6 +58,7 @@ export default {
       this.$refs[id][0].style.left = String(this.time2coordinate(task.start)) + 'px'
     },
     time2coordinate(str) {
+      // split：文字列を分割して配列にする。
       const his = str.split(' ')[1]
       const hisArr = his.split(':')
       const h = Number(hisArr[0])
