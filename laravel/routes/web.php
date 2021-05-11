@@ -18,16 +18,18 @@ Route::get('test', 'TaskController@retTaskAll');
 Route::get('/', function () {
     return view('./auth/login');
 });
-Route::get('fetch_task_data', function() {
-    return json_encode([
-        [
-            'id' => 1,
-            'start' => '2020/05/08 12:00:00',
-            'end' => '2020/05/08 15:45:20',
-            'name' => 'sample1'
-        ]
-    ]);
-});
+// Route::get('fetch_task_data', function() {
+//     return json_encode([
+//         [
+//             'id' => 1,
+//             'start' => '2020/05/08 12:00:00',
+//             'end' => '2020/05/08 15:45:20',
+//             'name' => 'sample'. Auth::id()
+//         ]
+//     ]);
+// });
+
+Route::get('fetch_task_data','TimeRecordController@send2Gantt');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

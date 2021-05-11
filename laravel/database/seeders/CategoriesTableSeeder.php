@@ -19,6 +19,12 @@ class CategoriesTableSeeder extends Seeder
         Category::create([
             'name' => 'SDB',
             'user_id' => '1'
+        ],[
+            'name' => 'programming',
+            'user_id' => '2'
+        ],[
+            'name' => 'English',
+            'user_id' => '3'
         ]);
 
     }

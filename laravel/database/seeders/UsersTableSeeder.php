@@ -19,6 +19,14 @@ class UsersTableSeeder extends Seeder
             'name' => 'hoge',
             'email' => 'hoge@hoge',
             'password' => 'hogehoge'
+        ],[
+            'name' => 'laravel',
+            'email' => 'laravel@php',
+            'password' => 'laravel08'
+        ],[
+            'name' => 'javascript',
+            'email' => 'javascript@php',
+            'password' => 'javascript08'
         ]);
     }
 }
