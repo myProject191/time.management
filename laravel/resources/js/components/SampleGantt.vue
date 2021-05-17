@@ -2,11 +2,14 @@
   <div class="container">
     <h1>Hello</h1>
     <div class="gantt">
-      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">{{ task.name }}</div>
+      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">{{ task.category }}</div>
     </div>
   </div>
 </template>
 <script>
+
+// vueからcontrollerを呼び出している！！！
+
 export default {
   // mounted：instanceを読み込まれちょっと後に呼び出される。
   mounted() {
@@ -22,32 +25,34 @@ export default {
           id: 1,
           start: '2020/05/08 12:00:00',
           end: '2020/05/08 15:45:20',
-          name: 'sample1'
+          category: 'sample1'
         },
         {
           id: 2,
           start: '2020/05/08 16:00:00',
           end: '2020/05/08 17:45:20',
-          name: 'sample2'
+          category: 'sample2'
         },
         {
           id: 3,
           start: '2020/05/08 18:00:00',
           end: '2020/05/08 18:45:20',
-          name: 'sample3'
+          category: 'sample3'
         },
         {
           id: 4,
           start: '2020/05/08 20:00:00',
           end: '2020/05/08 23:45:20',
-          name: 'sample4'
+          category: 'sample4'
         },
       ]
     }
   },
+
   //methods：処理を埋め込んで、後で呼び出す。
   methods: {
     async fetchTasks() {
+      // web.phpにfetch_task_dataのURLでリクエストしている。
         const url = "fetch_task_data"
         await axios.get(url).then(res => {
             this.tasks = res.data
@@ -61,7 +66,7 @@ export default {
     },
     setCoordinate(task) {
       const id = task.id
-    //   console.log(this.time2coordinate(task.start))
+      // console.log(this.time2coordinate(task.start))
       this.$refs[id][0].style.left = String(this.time2coordinate(task.start)) + 'px'
       this.$refs[id][0].style.color = 'red'
     },

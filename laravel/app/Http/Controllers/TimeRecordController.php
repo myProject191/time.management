@@ -12,9 +12,12 @@ class TimeRecordController extends Controller
         $user_id = Auth::id();
         $time_records = \DB::table('time_records as tr')
             ->select('tr.id', 'tr.start_time', 'tr.finish_time', 'categories.name as name')
-            ->where('user_id', $user_id)
+            ->where('tr.user_id', $user_id)
             ->leftJoin('categories', 'tr.category_id', '=', 'categories.id')
-            ->get();
+            ->first();
+            //　元々はfirstではなくgetだった。
+
+
 
         return json_encode([
             [

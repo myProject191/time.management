@@ -24,8 +24,8 @@ class TimeRecordsTableSeeder extends Seeder
         ],[
             'start_time' => '2021-11-10 00:00:00',
             'finish_time' => '2021-11-11 05:00:00',
-            'category_id' => '2',
-            'user_id' => '2' 
+            'category_id' => '3',
+            'user_id' => '3' 
         ],[
             'start_time' => '2021-11-14 00:00:00',
             'finish_time' => '2021-11-14 05:00:00',

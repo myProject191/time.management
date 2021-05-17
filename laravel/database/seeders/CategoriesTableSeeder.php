@@ -21,7 +21,7 @@ class CategoriesTableSeeder extends Seeder
             'user_id' => '1'
         ],[
             'name' => 'programming',
-            'user_id' => '2'
+            'user_id' => '3'
         ],[
             'name' => 'English',
             'user_id' => '3'
