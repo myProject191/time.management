@@ -18,6 +18,8 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
     ]);
 
+mix.js('resources/js/stopwatch.js','public/js');
+
 if (mix.inProduction()) {
     mix.version();
 }

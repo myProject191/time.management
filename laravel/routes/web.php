@@ -35,6 +35,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::middleware(['auth:sanctum', 'verified'])->post('/task_send','HomeController@task_send')
+->name('task_send');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/category_register','HomeController@category_register')
+->name('category_register');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
 //     return view('home');
@@ -46,6 +51,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/record', function () {
     return view('record');
 })->name('record');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/measurement', function () {
-    return view('measurement');
-})->name('measurement');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/measurement', 'MeasurementController@measurement')
+->name('measurement');
