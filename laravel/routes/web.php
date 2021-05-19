@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('test', 'TaskController@retTaskAll');
-
 
 Route::get('/', function () {
     return view('./auth/login');
 });
+
 // Route::get('fetch_task_data', function() {
 //     return json_encode([
 //         [
@@ -37,20 +36,35 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/task_send','HomeController@task_send')
 ->name('task_send');
-
+Route::middleware(['auth:sanctum', 'verified'])->get('/home','HomeController@home')->name('home');
 Route::middleware(['auth:sanctum', 'verified'])->post('/category_register','HomeController@category_register')
 ->name('category_register');
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
-//     return view('home');
-// })->name('home');
+// Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/home','HomeController@home')->name('home');
+//     post('/task_send','HomeController@task_send')->name('task_send');
+//     get('/home','HomeController@home')->name('home');
+//     post('/category_register','HomeController@category_register')->name('category_register');
+
+// });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/record', function () {
     return view('record');
 })->name('record');
 
+// Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+
+//     get('/measurement', 'MeasurementController@measurement')->name('measurement');
+//     post('/measurement_send','MeasurementController@measurement_send')->name('measurement_send');
+
+// });
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/measurement', 'MeasurementController@measurement')
 ->name('measurement');
+Route::middleware(['auth:sanctum', 'verified'])->post('/measurement_send', 'MeasurementController@measurement_send')
+->name('measurement_send');
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
+//     return view('home');
+// })->name('home');

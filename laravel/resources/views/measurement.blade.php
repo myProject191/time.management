@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form action='measurement_send'>
+                <form action='measurement_send' method='post'>
                     @csrf
                     <select name="category_choice" id="category_choice">
                         @foreach($categories as $category)
@@ -19,12 +19,7 @@
                     <input type="datetime-local" name="finish_time" id="finish_time">
 
                     <input type="button" value="start" id="ssbutton">
-                    <!-- ↑最初はstart、一回押すとpause、２回押すとrestartにする。（３回目はpause...） -->
-                    <!-- bool値で決める -->
                     <input type="submit" value="finish">
-
-
-
 
                 </form>
             </div>
