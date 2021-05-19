@@ -15,19 +15,23 @@
                             <option value="{{$category->name}}">{{$category->name}}</option>
                         @endforeach
                     </select>
-                    <input type="datetime-local" name="start_stop_time" id="start_stop_time">
+                    <input type="datetime-local" name="start_time" id="start_time">
                     <input type="datetime-local" name="finish_time" id="finish_time">
 
-                    <input type="button" value="start" onclick="stopwatch()" id="ssbutton">
+                    <input type="button" value="start" id="ssbutton">
                     <!-- ↑最初はstart、一回押すとpause、２回押すとrestartにする。（３回目はpause...） -->
                     <!-- bool値で決める -->
                     <input type="submit" value="finish">
+
+
+
 
                 </form>
             </div>
         </div>
     </div>
 </x-app-layout>
+
 
 <!-- <script>
 let judge = true;
