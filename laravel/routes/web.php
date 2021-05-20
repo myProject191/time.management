@@ -29,6 +29,7 @@ Route::get('/', function () {
 // });
 
 Route::get('fetch_task_data','TimeRecordController@send2Gantt');
+Route::get('fetch_task_data_2home1day','HomeGraphController@send2Home1day');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

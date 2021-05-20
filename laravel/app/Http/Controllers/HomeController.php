@@ -12,8 +12,14 @@ class HomeController extends Controller
 {
     public function home(){
         $user_id = Auth::id();
-        $tasks = Task::where('user_id',$user_id) -> get();
+        // $tasks = Task::where('user_id',$user_id) -> get();
         $categories = Category::where('user_id',$user_id) -> get();
+
+        $tasks = \DB::table('tasks')
+            ->select('tasks.id','tasks.start_time','tasks.finish_time','categories.name')
+            ->where('tasks.user_id',$user_id)
+            ->leftJoin('categories','tasks.category_id','=','categories.id')
+            ->get();
 
         return view('/home',['tasks' => $tasks,'categories' => $categories]);
     }

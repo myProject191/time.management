@@ -36,10 +36,15 @@
                     <input type="datetime-local" name="finish_time">
                     <input type="submit" value="send">
                 </form>
+                
+                <div id="homeApp">
+                    <Sample-gantt2 />
+                </div>
 
                 @foreach($tasks as $task)
                     <p>{{$task->start_time}}</p>
                     <p>{{$task->finish_time}}</p>
+                    <p>{{$task->name}}</p>
                 @endforeach
                 
             </div>

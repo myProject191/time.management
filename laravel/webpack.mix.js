@@ -18,6 +18,8 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
     ]);
 
+mix.postCss('resources/css/style.css','public/css');
+
 mix.js('resources/js/stopwatch.js','public/js');
 
 if (mix.inProduction()) {

@@ -17,8 +17,6 @@ class TimeRecordController extends Controller
             ->first();
             //　元々はfirstではなくgetだった。
 
-
-
         return json_encode([
             [
                 'id' => $time_records->id,
@@ -28,4 +26,5 @@ class TimeRecordController extends Controller
             ]
         ]);
     }
+    
 }

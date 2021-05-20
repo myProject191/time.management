@@ -19,7 +19,7 @@
                     <input type="datetime-local" name="finish_time" id="finish_time">
 
                     <input type="button" value="start" id="ssbutton">
-                    <input type="submit" value="finish">
+                    <input type="submit" value="finish" id="finish_button">
 
                 </form>
             </div>

@@ -8,6 +8,7 @@ require('alpinejs');
 import Vue from 'vue'
 import Sample from './components/Sample.vue'
 import SampleGantt from './components/SampleGantt.vue'
+import SampleGantt2 from './components/SampleGantt2.vue'
 // import Stopwatch from './components/Stopwatch.vue'
 
 new Vue({
@@ -15,6 +16,12 @@ new Vue({
     components: { 
         Sample,
         SampleGantt,
-        // Stopwatch,
+    }
+});
+
+new Vue({
+    el: '#homeApp',
+    components: {
+        SampleGantt2,
     }
 });
