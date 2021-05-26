@@ -69,3 +69,18 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/measurement_send', 'Meas
 // Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
 //     return view('home');
 // })->name('home');
+
+// Route::middleware(['auth:sanctum', 'verified'])->post('/home_table/{id}', 'HomeTableController@home_table')
+// ->name('home_table');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/task_edit/{id}', 'TaskEditController@task_edit')
+->name('task_edit');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/task_edit_done', 'TaskEditController@task_edit_done')
+->name('task_edit_done');
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/task_edit_done', 'TaskEditController@task_edit_done')
+// ->name('task_edit_done');
+
+// Route::get('/task_edit_done',function(){
+// return view('/home')})->name('task_edit_done');

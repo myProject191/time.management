@@ -2,11 +2,12 @@
   <div class="container">
     <h1>Hello</h1>
     <div class="gantt">
-      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">{{ task.category }}</div>
+      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id"　@click="somefunc(task)" >{{ task.category }}</div>
     </div>
   </div>
 </template>
 <script>
+// @click：onclickとして使える。
 
 // vueからcontrollerを呼び出している！！！
 
@@ -81,6 +82,11 @@ export default {
       const dayMinutes = 24 * 60
       const leftCoordinate = 720 * totalMinutes / dayMinutes
       return leftCoordinate
+    },
+    // @clickで呼び出す関数。
+    //これで、update,delete機能を作る。
+    somefunc(task){
+      alert(task.id)
     }
   }
 }

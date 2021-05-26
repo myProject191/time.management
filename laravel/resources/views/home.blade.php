@@ -37,16 +37,32 @@
                     <input type="submit" value="send">
                 </form>
                 
-                <div id="homeApp">
-                    <Sample-gantt2 />
+                <div id="app">
+                    <sample-gantt2 />
                 </div>
 
-                @foreach($tasks as $task)
-                    <p>{{$task->start_time}}</p>
-                    <p>{{$task->finish_time}}</p>
-                    <p>{{$task->name}}</p>
-                @endforeach
-                
+                <table border="10">
+                    <tr>
+                        <th>タスク名：</th>
+                        <th>開始時間：</th>
+                        <th>終了時間：</th>
+                        <th>更新：</th>
+                        <th>削除：</th>
+                    </tr>
+                    @foreach($tasks as $task)
+                        <tr>
+                        <td>{{ $task->name}}</td>
+                        <td>{{ $task->start_time}}</td>
+                        <td>{{ $task->finish_time}}</td>
+                        <td><a href="{{ route('task_edit',['id'=>$task->id])}}">edit</a></td>
+                        <form action="task_delete" method="post">
+                            @csrf
+                            <td><input type="submit" value="delete"></td>
+                        </form>
+                    @endforeach
+
+                </table>
+
             </div>
         </div>
     </div>

@@ -16,16 +16,23 @@ class HomeGraphController extends Controller
             ->select('tasks.id','tasks.start_time','tasks.finish_time','categories.name')
             ->where('tasks.user_id',$user_id)
             ->leftJoin('categories', 'tasks.category_id', '=', 'categories.id')
-            ->first();
+            ->get();
             //　元々はfirstではなくgetだった。
 
-        return json_encode([
-            [
-                'id' => $tasks->id,
-                'start' => $tasks->start_time,
-                'end' => $tasks->finish_time,
-                'category' => $tasks->name,
-            ]
-        ]);
+            // log::で値をみることができる
+
+            \Log::info($tasks);
+
+
+        // return json_encode([
+        //     [
+        //         'id' => $tasks->id,
+        //         'start' => $tasks->start_time,
+        //         'end' => $tasks->finish_time,
+        //         'category' => $tasks->name,
+        //     ]
+        // ]);
+
+        return ($tasks);
     }
 }

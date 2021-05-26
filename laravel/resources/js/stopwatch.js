@@ -40,4 +40,8 @@ function stopwatch(){
         judge = true;
     }
 }
-ssbutton.addEventListener("click",stopwatch,false);
+
+// if(ssbutton)：undefined,nullはfalseになる。ある時はtrueになる。
+if(ssbutton){
+    ssbutton.addEventListener("click", stopwatch, false);
+  }

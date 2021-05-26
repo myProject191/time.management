@@ -14,28 +14,40 @@ export default {
   mounted() {
     //   ここで、まず必要なデータを引っ張ってくる.
     this.fetchTasks()
-    this.setGantt()
+    // this.setGantt()
   },
   //サーバから引っ張ってきたデータや、自分で打ち込んだデータを入れていく
   data() {
     return {
       tasks: [
-        
+        // {
+        //   id: 1,
+        //   start_time: '2020/05/08 12:00:00',
+        //   end: '2020/05/08 15:45:20',
+        //   category: 'sample1'
+        // },
       ]
     }
   },
 
   //methods：処理を埋め込んで、後で呼び出す。
   methods: {
+    // awaitを使うときはasyncを書く
     async fetchTasks() {
       // web.phpにfetch_task_dataのURLでリクエストしている。
         const url = "fetch_task_data_2home1day"
+        // awaitによって非同期処理を待っている。
         await axios.get(url).then(res => {
             this.tasks = res.data
+            console.log(this.tasks)
         })
+        this.setGantt()
     },
     setGantt() {
-      const length = this.tasks.length
+      // const length = this.tasks.length
+
+      console.log(this.tasks)
+      const length = Object.keys(this.tasks).length
       for(let i = 0; i < length; i++) {
         this.setCoordinate(this.tasks[i])
       }
@@ -43,7 +55,7 @@ export default {
     setCoordinate(task) {
       const id = task.id
       // console.log(this.time2coordinate(task.start))
-      this.$refs[id][0].style.left = String(this.time2coordinate(task.start)) + 'px'
+      this.$refs[id][0].style.left = String(this.time2coordinate(task.start_time)) + 'px'
       this.$refs[id][0].style.color = 'red'
     },
     time2coordinate(str) {
