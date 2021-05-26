@@ -28,50 +28,38 @@ Route::get('/', function () {
 //     ]);
 // });
 
+
+// vueのルート
 Route::get('fetch_task_data','TimeRecordController@send2Gantt');
+
 Route::get('fetch_task_data_2home1day','HomeGraphController@send2Home1day');
 
+
+//ただviewを表示するようなルート
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-
-Route::middleware(['auth:sanctum', 'verified'])->post('/task_send','HomeController@task_send')
-->name('task_send');
-Route::middleware(['auth:sanctum', 'verified'])->get('/home','HomeController@home')->name('home');
-Route::middleware(['auth:sanctum', 'verified'])->post('/category_register','HomeController@category_register')
-->name('category_register');
-
-// Route::middleware(['auth:sanctum', 'verified'])->group(function(){
-
-//     post('/task_send','HomeController@task_send')->name('task_send');
-//     get('/home','HomeController@home')->name('home');
-//     post('/category_register','HomeController@category_register')->name('category_register');
-
-// });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/record', function () {
     return view('record');
 })->name('record');
 
-// Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
-//     get('/measurement', 'MeasurementController@measurement')->name('measurement');
-//     post('/measurement_send','MeasurementController@measurement_send')->name('measurement_send');
+//Controllerに繋げるためのルート
+Route::middleware(['auth:sanctum', 'verified'])->post('/task_send','HomeController@task_send')
+->name('task_send');
 
-// });
+Route::middleware(['auth:sanctum', 'verified'])->get('/home','HomeController@home')
+->name('home');
 
+Route::middleware(['auth:sanctum', 'verified'])->post('/category_register','HomeController@category_register')
+->name('category_register');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/measurement', 'MeasurementController@measurement')
 ->name('measurement');
+
 Route::middleware(['auth:sanctum', 'verified'])->post('/measurement_send', 'MeasurementController@measurement_send')
 ->name('measurement_send');
-
-// Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
-//     return view('home');
-// })->name('home');
-
-// Route::middleware(['auth:sanctum', 'verified'])->post('/home_table/{id}', 'HomeTableController@home_table')
-// ->name('home_table');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/task_edit/{id}', 'TaskEditController@task_edit')
 ->name('task_edit');
@@ -79,8 +67,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/task_edit/{id}', 'TaskEdi
 Route::middleware(['auth:sanctum', 'verified'])->post('/task_edit_done', 'TaskEditController@task_edit_done')
 ->name('task_edit_done');
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/task_edit_done', 'TaskEditController@task_edit_done')
-// ->name('task_edit_done');
-
-// Route::get('/task_edit_done',function(){
-// return view('/home')})->name('task_edit_done');
+Route::middleware(['auth:sanctum', 'verified'])->post('/task_delete', 'TaskEditController@task_delete')
+->name('task_delete');

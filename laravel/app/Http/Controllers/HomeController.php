@@ -27,7 +27,6 @@ class HomeController extends Controller
     public function task_send(Request $request){
         
         $user_id = Auth::id();
-
         $category_id = Category::where('name',$request->category_name2)->value('id');
 
         $task = new Task;

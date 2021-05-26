@@ -51,14 +51,16 @@
                     </tr>
                     @foreach($tasks as $task)
                         <tr>
-                        <td>{{ $task->name}}</td>
-                        <td>{{ $task->start_time}}</td>
-                        <td>{{ $task->finish_time}}</td>
-                        <td><a href="{{ route('task_edit',['id'=>$task->id])}}">edit</a></td>
-                        <form action="task_delete" method="post">
-                            @csrf
-                            <td><input type="submit" value="delete"></td>
-                        </form>
+                            <td>{{ $task->name}}</td>
+                            <td>{{ $task->start_time}}</td>
+                            <td>{{ $task->finish_time}}</td>
+                            <td><a href="{{ route('task_edit',['id'=>$task->id])}}">edit</a></td>
+                            <form action="task_delete" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $task->id}}">
+                                <td><input type="submit" value="delete"></td>
+                            </form>
+                        </tr>
                     @endforeach
 
                 </table>
