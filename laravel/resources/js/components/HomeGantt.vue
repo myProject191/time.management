@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="gantt">
-      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">{{ task.name }}</div>
+      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">
+      {{ task.name }}<br>
+      {{ task.start_time | moment }} - {{ task.finish_time | moment }}
+      </div>
     </div>
   </div>
 </template>
@@ -21,10 +24,7 @@ export default {
     return {
       tasks: [
         {
-          // id: 1,
-          // start_time: '2020/05/08 12:00:00',
-          // finish_time: '2020/05/08 15:45:20',
-          // category: 'sample1'
+
         },
       ]
     }
@@ -54,8 +54,8 @@ export default {
     setCoordinate(task) {
       const id = task.id
       // console.log(this.time2coordinate(task.start_time))
-      this.$refs[id][0].style.left = String(this.time2coordinate(task.start_time)) + 'px'
-      this.$refs[id][0].style.width = String(this.time2coordinate(task.finish_time) - this.time2coordinate(task.start_time)) + 'px'
+      this.$refs[id][0].style.top = String(this.time2coordinate(task.start_time)) + 'px'
+      this.$refs[id][0].style.height = String(this.time2coordinate(task.finish_time) - this.time2coordinate(task.start_time)) + 'px'
       this.$refs[id][0].style.color = 'white'
     },
     time2coordinate(str) {
@@ -71,15 +71,24 @@ export default {
       // console.log(leftCoordinate)
       return leftCoordinate
     }
+  },
+
+  filters:{
+    moment: function(date){
+      return moment(date).format('HH:mm');
+    }
   }
+  
 }
+
+
 </script>
 <style scoped lang="scss">
 .cantainer {
-  width: 100%;
+  height: 100%;
 }
-$ganttWidth: 720px;
-$ganttHeight: 100px;
+$ganttWidth: 700px;
+$ganttHeight: 720px;
 .gantt {
   margin: 0 auto;
   width: $ganttWidth;
@@ -90,7 +99,7 @@ $ganttHeight: 100px;
     position: absolute;
     left: 0;
     top: 0;
-    height: 100%;
+    width: 100%;
     background-color: blue;
   }
 }

@@ -12,15 +12,17 @@ class HomeGraphController extends Controller
 {
     public function send2Home1day(){
         $user_id = Auth::id();
+        $today = date("Y-m-d");
         $tasks = \DB::table('tasks')
             ->select('tasks.id','tasks.start_time','tasks.finish_time','categories.name')
             ->where('tasks.user_id',$user_id)
+            ->whereDate('tasks.start_time',$today)
             ->leftJoin('categories', 'tasks.category_id', '=', 'categories.id')
             ->get();
 
             // log::で値をみることができる
 
-            // \Log::info($tasks);
+            \Log::info($tasks);
 
 
         // return json_encode([

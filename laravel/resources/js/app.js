@@ -6,6 +6,7 @@ require('alpinejs');
 
 
 import Vue from 'vue'
+// import moment from 'moment'
 import Sample from './components/Sample.vue'
 import TimeRecordsGantt from './components/TimeRecordsGantt.vue'
 import HomeGantt from './components/HomeGantt.vue'
