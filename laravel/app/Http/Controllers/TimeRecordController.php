@@ -14,17 +14,19 @@ class TimeRecordController extends Controller
             ->select('tr.id', 'tr.start_time', 'tr.finish_time', 'categories.name as name')
             ->where('tr.user_id', $user_id)
             ->leftJoin('categories', 'tr.category_id', '=', 'categories.id')
-            ->first();
+            ->get();
             //　元々はfirstではなくgetだった。
 
-        return json_encode([
-            [
-                'id' => $time_records->id,
-                'start' => $time_records->start_time,
-                'end' => $time_records->finish_time,
-                'category' => $time_records->name,
-            ]
-        ]);
+        // return json_encode([
+        //     [
+        //         'id' => $time_records->id,
+        //         'start' => $time_records->start_time,
+        //         'end' => $time_records->finish_time,
+        //         'category' => $time_records->name,
+        //     ]
+        // ]);
+
+        return($time_records);
     }
     
 }

@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h1>Hello</h1>
     <div class="gantt">
-      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id"　@click="somefunc(task)" >{{ task.category }}</div>
+      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id"　@click="somefunc(task)" >{{ task.name }}</div>
     </div>
   </div>
 </template>
@@ -16,35 +15,17 @@ export default {
   mounted() {
     //   ここで、まず必要なデータを引っ張ってくる.
     this.fetchTasks()
-    this.setGantt()
+    // this.setGantt()
   },
   //サーバから引っ張ってきたデータや、自分で打ち込んだデータを入れていく
   data() {
     return {
       tasks: [
         {
-          id: 1,
-          start: '2020/05/08 12:00:00',
-          end: '2020/05/08 15:45:20',
-          category: 'sample1'
-        },
-        {
-          id: 2,
-          start: '2020/05/08 16:00:00',
-          end: '2020/05/08 17:45:20',
-          category: 'sample2'
-        },
-        {
-          id: 3,
-          start: '2020/05/08 18:00:00',
-          end: '2020/05/08 18:45:20',
-          category: 'sample3'
-        },
-        {
-          id: 4,
-          start: '2020/05/08 20:00:00',
-          end: '2020/05/08 23:45:20',
-          category: 'sample4'
+          // id: 1,
+          // start: '2020/05/08 12:00:00',
+          // end: '2020/05/08 15:45:20',
+          // category: 'sample1'
         },
       ]
     }
@@ -58,18 +39,22 @@ export default {
         await axios.get(url).then(res => {
             this.tasks = res.data
         })
+        this.setGantt()
     },
     setGantt() {
-      const length = this.tasks.length
+      // const length = this.tasks.length
+      const length = Object.keys(this.tasks).length
       for(let i = 0; i < length; i++) {
         this.setCoordinate(this.tasks[i])
+        // console.log(this.tasks[i])
       }
     },
     setCoordinate(task) {
       const id = task.id
-      // console.log(this.time2coordinate(task.start))
-      this.$refs[id][0].style.left = String(this.time2coordinate(task.start)) + 'px'
-      this.$refs[id][0].style.color = 'red'
+      // console.log(this.time2coordinate(task.start_time))
+      this.$refs[id][0].style.left = String(this.time2coordinate(task.start_time)) + 'px'
+      this.$refs[id][0].style.width = String(this.time2coordinate(task.finish_time) - this.time2coordinate(task.start_time)) + 'px'
+      this.$refs[id][0].style.color = 'white'
     },
     time2coordinate(str) {
       // split：文字列を分割して配列にする。
@@ -108,7 +93,7 @@ $ganttHeight: 60px;
     left: 0;
     top: 0;
     height: 100%;
-    background-color: gray;
+    background-color: blue;
   }
 }
 </style>

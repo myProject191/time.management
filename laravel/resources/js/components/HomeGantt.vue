@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="gantt">
-      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">{{ task.category }}</div>
+      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">{{ task.name }}</div>
     </div>
   </div>
 </template>
@@ -20,12 +20,12 @@ export default {
   data() {
     return {
       tasks: [
-        // {
-        //   id: 1,
-        //   start_time: '2020/05/08 12:00:00',
-        //   end: '2020/05/08 15:45:20',
-        //   category: 'sample1'
-        // },
+        {
+          // id: 1,
+          // start_time: '2020/05/08 12:00:00',
+          // finish_time: '2020/05/08 15:45:20',
+          // category: 'sample1'
+        },
       ]
     }
   },
@@ -39,24 +39,24 @@ export default {
         // awaitによって非同期処理を待っている。
         await axios.get(url).then(res => {
             this.tasks = res.data
-            console.log(this.tasks)
+            // console.log(this.tasks)
         })
         this.setGantt()
     },
     setGantt() {
       // const length = this.tasks.length
-
-      console.log(this.tasks)
       const length = Object.keys(this.tasks).length
       for(let i = 0; i < length; i++) {
         this.setCoordinate(this.tasks[i])
+        console.log(this.tasks[i])
       }
     },
     setCoordinate(task) {
       const id = task.id
-      // console.log(this.time2coordinate(task.start))
+      // console.log(this.time2coordinate(task.start_time))
       this.$refs[id][0].style.left = String(this.time2coordinate(task.start_time)) + 'px'
-      this.$refs[id][0].style.color = 'red'
+      this.$refs[id][0].style.width = String(this.time2coordinate(task.finish_time) - this.time2coordinate(task.start_time)) + 'px'
+      this.$refs[id][0].style.color = 'white'
     },
     time2coordinate(str) {
       // split：文字列を分割して配列にする。
@@ -68,6 +68,7 @@ export default {
       const totalMinutes = h * 60 + i
       const dayMinutes = 24 * 60
       const leftCoordinate = 720 * totalMinutes / dayMinutes
+      // console.log(leftCoordinate)
       return leftCoordinate
     }
   }
@@ -78,7 +79,7 @@ export default {
   width: 100%;
 }
 $ganttWidth: 720px;
-$ganttHeight: 60px;
+$ganttHeight: 100px;
 .gantt {
   margin: 0 auto;
   width: $ganttWidth;
@@ -90,7 +91,7 @@ $ganttHeight: 60px;
     left: 0;
     top: 0;
     height: 100%;
-    background-color: gray;
+    background-color: blue;
   }
 }
 </style>

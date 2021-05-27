@@ -38,7 +38,7 @@
                 </form>
                 
                 <div id="app">
-                    <sample-gantt2 />
+                    <Home-gantt />
                 </div>
 
                 <table border="10">

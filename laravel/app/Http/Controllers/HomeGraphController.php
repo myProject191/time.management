@@ -17,11 +17,10 @@ class HomeGraphController extends Controller
             ->where('tasks.user_id',$user_id)
             ->leftJoin('categories', 'tasks.category_id', '=', 'categories.id')
             ->get();
-            //　元々はfirstではなくgetだった。
 
             // log::で値をみることができる
 
-            \Log::info($tasks);
+            // \Log::info($tasks);
 
 
         // return json_encode([
