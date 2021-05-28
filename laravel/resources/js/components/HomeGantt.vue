@@ -1,10 +1,24 @@
 <template>
   <div class="container">
     <div class="gantt">
-      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id">
-      {{ task.name }}<br>
-      {{ task.start_time | moment }} - {{ task.finish_time | moment }}
+      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id" @click="openModel(task.id)">
+        {{ task.name }}<br>
+        {{ task.start_time | moment }} - {{ task.finish_time | moment }}
+        </div>
+        <div id="overlay" v-show="showContent" v-on:click="closeModel">
+          <div id="content">
+            <p>このタスクを変更/削除しますか？</p>
+            <button v-on:click="delete_1">delete</button>
+            <button v-on:click="edit">edit</button>
+            <button v-on:click="closeModel">close</button>
+          </div>
       </div>
+
+
+      <p class="time0">0:00</p>
+      <p class="time12">12:00</p>
+      <hr class="border12">
+      <p class="time24">24:00</p>
     </div>
   </div>
 </template>
@@ -21,10 +35,13 @@ export default {
   },
   //サーバから引っ張ってきたデータや、自分で打ち込んだデータを入れていく
   data() {
+    
     return {
+      showContent:false,
+      taskId: 0,
       tasks: [
         {
-
+        
         },
       ]
     }
@@ -70,6 +87,31 @@ export default {
       const leftCoordinate = 720 * totalMinutes / dayMinutes
       // console.log(leftCoordinate)
       return leftCoordinate
+    },
+    // alert(task){
+    //   alert(task.id)
+    // },
+    openModel: function(id){
+      this.showContent = true
+      this.taskId = id
+      console.log(id)
+      console.log(this.taskId)
+    },
+    closeModel: function(){
+      this.showContent = false
+    },
+    edit: function(){
+      const task_id = this.taskId
+      const editUrl = "/task_edit/" + String(task_id)
+      // console.log(editUrl)
+      window.location.href = editUrl
+    },
+    delete_1: function(){
+      const task_id_2 = this.taskId
+      axios.post('/task_delete_2',{
+        delete_task_id: task_id_2 
+      })
+      window.location.href = "/home"
     }
   },
 
@@ -90,10 +132,10 @@ export default {
 $ganttWidth: 700px;
 $ganttHeight: 720px;
 .gantt {
-  margin: 0 auto;
+  margin: 50px auto 0px auto;
   width: $ganttWidth;
   height: $ganttHeight;
-  border: solid 1px rgba(0,0,0,.1);
+  border: solid 4px rgba(0,0,0,.1);
   position: relative;
   > .task {
     position: absolute;
@@ -102,5 +144,56 @@ $ganttHeight: 720px;
     width: 100%;
     background-color: blue;
   }
+  > .time0 {
+    position: relative;
+    left: -60px;
+    top: -20px;
+    font-size: 25px;
+  }
+  > .time12 {
+    position: relative;
+    left: -75px;
+    top: 305px;
+    font-size: 25px;
+  }
+  > .time24 {
+    position: relative;
+    left: -75px;
+    top: 621px;
+    font-size: 25px;
+  }
+  > .border12 {
+    position: relative;
+    top: 284px;
+    background-color: grey;
+    height: 2px;
+  }
 }
+</style>
+<style>
+#overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:1;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+#content{
+  z-index:2;
+  width:50%;
+  padding: 1em;
+  background:#fff;
+}
+
 </style>

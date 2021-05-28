@@ -69,3 +69,6 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/task_edit_done', 'TaskEd
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/task_delete', 'TaskEditController@task_delete')
 ->name('task_delete');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/task_delete_2', 'TaskEditController@task_delete_2')
+->name('task_delete_2');

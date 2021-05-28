@@ -55,4 +55,13 @@ class TaskEditController extends Controller
         return ($redirect);
     }
 
+    public function task_delete_2(Request $request){
+        $delete_task = Task::find($request->delete_task_id);
+        $delete_task->delete();
+        
+        $home_controller = app()->make('App\Http\Controllers\HomeController');
+        $redirect = $home_controller->home();
+        return ($redirect);
+    }
+
 }

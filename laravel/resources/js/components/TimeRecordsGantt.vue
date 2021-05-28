@@ -52,8 +52,8 @@ export default {
     setCoordinate(task) {
       const id = task.id
       // console.log(this.time2coordinate(task.start_time))
-      this.$refs[id][0].style.left = String(this.time2coordinate(task.start_time)) + 'px'
-      this.$refs[id][0].style.width = String(this.time2coordinate(task.finish_time) - this.time2coordinate(task.start_time)) + 'px'
+      this.$refs[id][0].style.top = String(this.time2coordinate(task.start_time)) + 'px'
+      this.$refs[id][0].style.height = String(this.time2coordinate(task.finish_time) - this.time2coordinate(task.start_time)) + 'px'
       this.$refs[id][0].style.color = 'white'
     },
     time2coordinate(str) {
@@ -72,6 +72,7 @@ export default {
     //これで、update,delete機能を作る。
     somefunc(task){
       alert(task.id)
+
     }
   }
 }
@@ -80,8 +81,8 @@ export default {
 .cantainer {
   width: 100%;
 }
-$ganttWidth: 720px;
-$ganttHeight: 60px;
+$ganttWidth: 700px;
+$ganttHeight: 720px;
 .gantt {
   margin: 0 auto;
   width: $ganttWidth;
@@ -92,7 +93,7 @@ $ganttHeight: 60px;
     position: absolute;
     left: 0;
     top: 0;
-    height: 100%;
+    width: 100%;
     background-color: blue;
   }
 }
