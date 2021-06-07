@@ -84,7 +84,7 @@ export default {
 $ganttWidth: 700px;
 $ganttHeight: 720px;
 .gantt {
-  margin: 0 auto;
+  margin: 50px auto 100px auto;
   width: $ganttWidth;
   height: $ganttHeight;
   border: solid 1px rgba(0,0,0,.1);

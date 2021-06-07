@@ -24,6 +24,19 @@ class HomeController extends Controller
         return view('/home',['tasks' => $tasks,'categories' => $categories]);
     }
 
+    public function schedule(){
+        $user_id = Auth::id();
+        $categories = Category::where('user_id',$user_id) -> get();
+
+        $tasks = \DB::table('tasks')
+            ->select('tasks.id','tasks.start_time','tasks.finish_time','categories.name')
+            ->where('tasks.user_id',$user_id)
+            ->leftJoin('categories','tasks.category_id','=','categories.id')
+            ->get();
+
+        return view('/schedule',['tasks' => $tasks,'categories' => $categories]);
+    }
+
     public function task_send(Request $request){
         
         $user_id = Auth::id();
@@ -40,6 +53,22 @@ class HomeController extends Controller
 
     }
 
+    public function back_task_send(Request $request){
+        
+        $user_id = Auth::id();
+        $category_id = Category::where('name',$request->category_name2)->value('id');
+
+        $task = new Task;
+        $task->start_time = $request->input('start_time');
+        $task->finish_time = $request->input('finish_time');
+        $task->category_id = $category_id;
+        $task->user_id = $user_id;
+        $task->save();
+
+        return redirect('/back_home');
+
+    }
+
     public function category_register(Request $request){
         $user_id = Auth::id();
 
@@ -49,5 +78,16 @@ class HomeController extends Controller
         $category->save();
 
         return redirect('/home');
+    }
+
+    public function back_category_register(Request $request){
+        $user_id = Auth::id();
+
+        $category = new Category;
+        $category->name = $request->input('category_name');
+        $category->user_id = $user_id;
+        $category->save();
+
+        return redirect('/back_home');
     }
 }

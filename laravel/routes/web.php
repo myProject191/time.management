@@ -36,24 +36,34 @@ Route::get('fetch_task_data_2home1day','HomeGraphController@send2Home1day');
 
 
 //ただviewを表示するようなルート
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard','HomeController@home')
+->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/record', function () {
     return view('record');
 })->name('record');
 
-
 //Controllerに繋げるためのルート
 Route::middleware(['auth:sanctum', 'verified'])->post('/task_send','HomeController@task_send')
 ->name('task_send');
 
+Route::middleware(['auth:sanctum', 'verified'])->post('/back_task_send','HomeController@back_task_send')
+->name('back_task_send');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/home','HomeController@home')
 ->name('home');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/schedule','HomeController@schedule')
+->name('schedule');
+
 Route::middleware(['auth:sanctum', 'verified'])->post('/category_register','HomeController@category_register')
 ->name('category_register');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/back_category_register','HomeController@back_category_register')
+->name('back_category_register');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/measurement', 'MeasurementController@measurement')
 ->name('measurement');

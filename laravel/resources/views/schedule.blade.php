@@ -10,26 +10,20 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
                 <a href="#">Today</a>
-                <a href="#">Today</a>
-                <a href="#">Today</a>
+                <a href="#">1 week</a>
+                <a href="#">1 month</a>
 
                 <a href="{{ route('home')}}">Graph</a>
-                <ul>
-                    <li><a href="#">Today</a></li>
-                    <li><a href="#">Today</a></li>
-                    <li><a href="#">Today</a></li>
-                    <li><a href="{{ route('schedule')}}">Schedule</a>
-                </ul>
+                <a href="{{ route('schedule')}}">Schedule</a>
 
-
-                <form action='category_register' method='post'>
+                <form action='back_category_register' method='post'>
                     @csrf
                     <label for="category_name">　カテゴリー名：</label>
                     <input type="text" name="category_name">
                     <input type="submit" value="send">
                 </form>
 
-                <form action='task_send' method='post'>
+                <form action='back_task_send' method='post'>
                     @csrf
                     <label for="category_name2">カテゴリー名：</label>
                     <select name="category_name2" id="category_name2">
@@ -38,7 +32,6 @@
                     @endforeach
                     </select>
 
-
                     <label for="start_time">開始時間：</label>
                     <input type="datetime-local" name="start_time">
                     <label for="finish_time">終了時間：</label>
@@ -46,13 +39,7 @@
                     <input type="submit" value="send">
                 </form>
 
-
-                
-                <div id="app">
-                    <Home-gantt />
-                </div>
-
-                <!-- <table border="10">
+                <table border="10">
                     <tr>
                         <th>タスク名：</th>
                         <th>開始時間：</th>
@@ -73,7 +60,8 @@
                             </form>
                         </tr>
                     @endforeach
-                </table> -->
+
+                </table>
 
             </div>
         </div>
