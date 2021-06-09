@@ -20,7 +20,8 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.postCss('resources/css/style.css','public/css');
 
-mix.js('resources/js/stopwatch.js','public/js');
+mix.js('resources/js/stopwatch.js','public/js')
+   .js('resources/js/pulldown.js','public/js');
 
 if (mix.inProduction()) {
     mix.version();

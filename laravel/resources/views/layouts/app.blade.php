@@ -49,6 +49,7 @@
         @livewireScripts
 
         <script src="{{ mix('js/stopwatch.js') }}"></script>
+        <script src="{{ mix('js/pulldown.js') }}"></script>
     </body>
 
 

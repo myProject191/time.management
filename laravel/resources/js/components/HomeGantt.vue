@@ -167,7 +167,7 @@ $ganttHeight: 1440px;
 
   > #borderLine {
     position: absolute;
-    z-index:5;
+    z-index:2;
     width:100%;
     border-top: #ea4335 solid 2px;
     background-color: red;
@@ -249,6 +249,7 @@ $ganttHeight: 1440px;
 .taskSentence{
   font-size: 20px;
   padding-top: 40px;
+  padding-bottom: 30px;
 }
 .buttonSet{
   text-align: right;
@@ -261,6 +262,9 @@ $ganttHeight: 1440px;
   background-color: rgb(255,70,70);
   border-radius: 3px;
 }
+.delete:hover{
+  background-color: rgba(255,70,70,0.9);
+}
 .edit{
   font-size: 17px;
   color: white;
@@ -269,6 +273,9 @@ $ganttHeight: 1440px;
   background-color: #1a73e8;
   border-radius: 3px;
   margin-right: 7px;
-
 }
+.edit:hover{
+  background-color: rgba(26,115,232,0.9);
+}
+
 </style>

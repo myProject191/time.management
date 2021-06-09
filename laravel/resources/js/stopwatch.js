@@ -13,7 +13,6 @@ function getTime(){
     let date = ( '0' + now.getDate()).slice(-2);
     let hour = ( '0' + now.getHours()).slice(-2);
     let min = ( '0' + now.getMinutes()).slice(-2);
-
     let time = year + '-' + month + '-' + date + 'T' + hour + ':' + min;
 
     return time;
@@ -28,13 +27,11 @@ function stopwatch(){
     start_time.value = nowTime;
     timeBool = false;
     }
-
     if(judge){
         ssbutton.value = "Pause";
         finish_time.value = nowTime;
         console.log(nowTime);
         judge = false;
-
     }else{
         ssbutton.value = "Restart";
         judge = true;
