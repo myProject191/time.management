@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="gantt">
+    <div class="gantt" id="gantt" @mousedown="locationDown" @mousemove="locationMove" @mouseup="locationUp">
+      <div class="task" ref="newTask"></div>
       <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id" @click="openModel(task)">
         <div class="taskDetail">
         {{ task.name }}<br>
@@ -43,6 +44,12 @@ export default {
     return {
       showContent:false,
       taskId: 0,
+      yDownPage: 0,
+      yDown: 0,
+      yMove: 0,
+      yUp: 0,
+      beforeDis: 0,
+      taskBoolean: false,
       chosenTask: [
         {
 
@@ -126,6 +133,42 @@ export default {
       this.$refs.borderLine.style.top = String(nowTime) + 'px'
       // this.$refs.borderLine.style.color = 'red'
       // console.log("place"+nowTime)
+    },
+    locationDown: function(locDown){
+      this.$refs.newTask.style.top = '0px'
+      this.$refs.newTask.style.height = '0px'
+
+      let yCoordinate1 = 15 * Math.floor(locDown.offsetY/15)
+      this.yDown = yCoordinate1
+      this.yDownPage = locDown.pageY
+      this.$refs.newTask.style.top = String(yCoordinate1) + 'px'
+      this.taskBoolean = true
+    },
+    locationMove: function(e){
+      if(this.taskBoolean){
+        this.yMove = 15 * Math.floor(e.offsetY/15)
+        if(e.pageY - this.yDownPage <= 0){
+          this.$refs.newTask.style.height = '0px'
+        }
+        else{
+          if(this.yMove - this.beforeDis >= 0){
+            this.beforeDis = this.yMove
+            this.$refs.newTask.style.height = String(this.yMove - this.yDown) + 'px'
+          }else{
+            this.beforeDis = this.yMove
+            this.$refs.newTask.style.height = String(this.yMove) + 'px'
+          }
+        }
+
+      }
+    },
+    locationUp: function(locUp){
+      let yCoordinate3 = 0
+      yCoordinate3 = 15 * Math.floor(locUp.offsetY/15)
+      this.yUp = yCoordinate3
+      this.$refs.newTask.style.height = String(yCoordinate3 - this.yDown) + 'px'
+      this.taskBoolean = false
+      // console.log(this.yUp)
     }
   },
 
