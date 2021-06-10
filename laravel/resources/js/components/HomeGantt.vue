@@ -1,28 +1,44 @@
 <template>
   <div class="container">
+    <div id="taskRegister" v-show="showRegister" v-on:click="closeRegister">
+      <div id="trContent" ref="trContent"  v-on:click="stopEvent">
+        <p>タスクを登録</p>
+        <label>カテゴリー名</label>
+        <input type="text" v-model="category"></input><br>
+        <label>開始時間：</label>
+        <input type="datetime-local" v-model="start_time"></input><br>
+        <label>終了時間：</label>
+        <input type="datetime-local" v-model="finish_time"></input><br>
+        <button @click="onSubmit()">送信する</button>
+        <!--  <text class="button" type="text" @click="onSubmit()">送信する</text> -->
+      </div>
+    </div>
+
     <div class="gantt" id="gantt" @mousedown="locationDown" @mousemove="locationMove" @mouseup="locationUp">
       <div class="task" ref="newTask"></div>
-      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id" @click="openModel(task)">
+
+      <div class="task" v-for="task in tasks" :key="task.id" :ref="task.id" @click="openModel(task)"  @mousedown.stop @mousemove.stop @mouseup.stop>
         <div class="taskDetail">
         {{ task.name }}<br>
         {{ task.start_time | moment }} - {{ task.finish_time | moment }}
         </div>
       </div>
-      <div id="overlay" v-show="showContent" v-on:click="closeModel">
-        <div id="content">
-          <button v-on:click="closeModel" class="close">×</button>
-          <p class="taskName">{{ chosenTask.name}}</p>
-          <p class="taskst">{{ chosenTask.start_time | momentDays}} / {{ chosenTask.start_time | moment}}-{{ chosenTask.finish_time | moment}}</p>
-          <p class="taskSentence">このタスクを変更/削除しますか？</p>
-          <div class="buttonSet">
-            <button v-on:click="edit" class="edit">編集</button>
-            <button v-on:click="delete_1" class="delete">削除</button>
-          </div>
-        </div>
-      </div>
       <div ref="borderLine" id="borderLine"></div>
       <div v-for="n in 23" :class="'timesBorder'+ n"></div>
       <div v-for="n in 25" :class="'times'+ n">{{ n-1 }}:00</div>
+    </div>
+
+    <div id="overlay" v-show="showContent" v-on:click="closeModel">
+      <div id="content" v-on:click="stopEvent">
+        <button v-on:click="closeModel" class="close">×</button>
+        <p class="taskName">{{ chosenTask.name}}</p>
+        <p class="taskst">{{ chosenTask.start_time | momentDays}} / {{ chosenTask.start_time | moment}}-{{ chosenTask.finish_time | moment}}</p>
+        <p class="taskSentence">このタスクを変更/削除しますか？</p>
+        <div class="buttonSet">
+          <button v-on:click="edit" class="edit">編集</button>
+          <button v-on:click="delete_1" class="delete">削除</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +59,7 @@ export default {
     
     return {
       showContent:false,
+      showRegister:false,
       taskId: 0,
       yDownPage: 0,
       yDown: 0,
@@ -50,6 +67,11 @@ export default {
       yUp: 0,
       beforeDis: 0,
       taskBoolean: false,
+      startPointX: 0,
+      startPointY: 0,
+      category:'',
+      finish_time:'',
+      start_time:'',
       chosenTask: [
         {
 
@@ -115,6 +137,9 @@ export default {
     closeModel: function(){
       this.showContent = false
     },
+    stopEvent: function(event){
+      event.stopPropagation()
+    },
     edit: function(){
       const task_id = this.taskId
       const editUrl = "/task_edit/" + String(task_id)
@@ -134,16 +159,34 @@ export default {
       // this.$refs.borderLine.style.color = 'red'
       // console.log("place"+nowTime)
     },
+    todayDate: function(){
+      let date = new Date()
+      let year = date.getFullYear()
+      let month = ("0" + (date.getMonth() + 1)).slice(-2)
+      let date1 = ( "0" + date.getDate()).slice(-2)
+
+      return year + "-" + month + "-" + date1 + "T"
+    },
+
     locationDown: function(locDown){
       this.$refs.newTask.style.top = '0px'
       this.$refs.newTask.style.height = '0px'
+      // this.startPointX = 15 * Math.floor(locDown.clientX/15)
+      this.startPointY = 15 * Math.floor(locDown.clientY/15)
 
       let yCoordinate1 = 15 * Math.floor(locDown.offsetY/15)
       this.yDown = yCoordinate1
       this.yDownPage = locDown.pageY
       this.$refs.newTask.style.top = String(yCoordinate1) + 'px'
+
+      let downHour = ( "0" + Math.floor(yCoordinate1/60)).slice(-2)
+      let downMinute = ("0" + yCoordinate1 % 60).slice(-2)
+      let downToday = this.todayDate()
+
+      this.start_time = downToday + downHour + ":" + downMinute
       this.taskBoolean = true
     },
+    
     locationMove: function(e){
       if(this.taskBoolean){
         this.yMove = 15 * Math.floor(e.offsetY/15)
@@ -159,7 +202,6 @@ export default {
             this.$refs.newTask.style.height = String(this.yMove) + 'px'
           }
         }
-
       }
     },
     locationUp: function(locUp){
@@ -167,8 +209,40 @@ export default {
       yCoordinate3 = 15 * Math.floor(locUp.offsetY/15)
       this.yUp = yCoordinate3
       this.$refs.newTask.style.height = String(yCoordinate3 - this.yDown) + 'px'
+
+      let upHour = ( "0" + Math.floor(yCoordinate3/60)).slice(-2)
+      let upMinute = ("0" + yCoordinate3 % 60).slice(-2)
+      let upToday = this.todayDate()
+
+      this.finish_time = upToday + upHour + ":" + upMinute
       this.taskBoolean = false
-      // console.log(this.yUp)
+
+      this.displayModal()
+    },
+    displayModal: function(){
+      this.showRegister = true
+      this.$refs.trContent.style.top = String(this.startPointY) + 'px'
+      // this.$refs.trContent.style.left = String(this.startPointX) + 'px'
+    },
+    closeRegister: function(){
+      this.showRegister = false
+      this.$refs.newTask.style.top = '0px'
+      this.$refs.newTask.style.height = '0px'
+    },
+    onSubmit: function() {
+
+        const params = {
+            category_name2: this.category,
+            start_time: this.start_time,
+            finish_time: this.finish_time,
+        };
+        axios.post('/task_send', params)
+              window.location.href = "/home"
+            // .then(function(response){
+            // })
+            // .catch(function(error){
+            //     // 失敗したとき
+            // });
     }
   },
 
@@ -319,6 +393,30 @@ $ganttHeight: 1440px;
 }
 .edit:hover{
   background-color: rgba(26,115,232,0.9);
+}
+
+#taskRegister{
+  /*　要素を重ねた時の順番　*/
+  z-index:10;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+#trContent{
+  z-index:12;
+  width:20%;
+  height: 30%;
+  padding: 0.2em 2em 1em 2em;
+  background:#fff;
+  border-radius: 3px;
+  position: absolute;  
+  left: 10%;
+  background-color: rgb(240,240,240);
+  border: solid 3px rgb(0,0,0);
 }
 
 </style>
