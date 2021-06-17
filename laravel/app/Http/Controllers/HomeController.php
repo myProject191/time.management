@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Validator;
+use Illuminate\Validation\Rule;
+
 
 
 class HomeController extends Controller
@@ -69,15 +72,47 @@ class HomeController extends Controller
 
     }
 
+    // public function category_register(Request $request){
+    //     $user_id = Auth::id();
+
+    //     $category = new Category;
+    //     $category->name = $request->input('category_name');
+    //     $category->user_id = $user_id;
+    //     $category->save();
+
+    //     return redirect('/home');
+    // }
+
     public function category_register(Request $request){
+
         $user_id = Auth::id();
+        $category_all = Category::where('user_id',$user_id)->pluck('name');
 
-        $category = new Category;
-        $category->name = $request->input('category_name');
-        $category->user_id = $user_id;
-        $category->save();
+        $validator = Validator::make($request->all(), [
+            'category_name' => [
+                'required',
+                Rule::notIn($category_all),
+            ],
+        ]);
+        $message = [
+            'category_name.required' => 'カテゴリーを記入してください'
+            // 'category_name.notIn' => 'カテゴリーが重複しています'
+        ];
 
-        return redirect('/home');
+        if($validator->passes()){
+            $category = new Category;
+            $category->name = $request->input('category_name');
+            $category->user_id = $user_id;
+            $category->save();
+
+            return redirect('/home');
+        }
+        if($validator->fails()){
+            return redirect('/home')
+            ->withErrors($message)
+            ->withInput();
+        }
+
     }
 
     public function back_category_register(Request $request){

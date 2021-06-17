@@ -25,6 +25,15 @@
             <!-- カテゴリーの追加をする -->
 
                 <div class="editBar">
+                                        @if($errors->any())
+                                            <div class="alert alert-danger">
+	                                            <ul>
+	                                                @foreach ($errors->all() as $error)
+	                                                    <li>{{ $error }}</li>
+	                                                @endforeach
+	                                            </ul>
+	                                        </div>
+                                            @endif
                     
                     <div class="dropdown_tasks">
                         <button class="dropbtn_tasks" id="dropbtn_tasks"><span id="taskTriangle">▶︎</span>タスクを追加</button>
@@ -58,7 +67,7 @@
                                     <form action='category_register' method='post'>
                                         @csrf
                                         <div class="category1">
-                                            <label for="category">カテゴリーを追加：</label>
+                                            <label for="category_name">カテゴリーを追加：</label>
                                             <input type="text" name="category_name">
                                         </div>
                                         <div class="color_set">

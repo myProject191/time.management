@@ -8,6 +8,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+
+                <p class="choice">カテゴリーを選択</p>
                 <form action='measurement_send' method='post'>
                     @csrf
                     <select name="category_choice" id="category_choice">
@@ -15,28 +17,28 @@
                             <option value="{{$category->name}}">{{$category->name}}</option>
                         @endforeach
                     </select>
-                    <input type="datetime-local" name="start_time" id="start_time">
-                    <input type="datetime-local" name="finish_time" id="finish_time">
-
-                    <input type="button" value="start" id="ssbutton">
-                    <input type="submit" value="finish" id="finish_button">
-
+                    <input type="submit" value="start" id="start_button">
                 </form>
             </div>
         </div>
     </div>
 </x-app-layout>
 
-
-<!-- <script>
-let judge = true;
-function stopwatch() {
-  if (judge) {
-    ssbutton.value = "Pause";
-    judge = false;
-  } else {
-    ssbutton.value = "Restart";
-    judge = true;
-  }
+<style>
+.choice{
+    font-size: 50px;
 }
-</script> -->
+#category_choice{
+    height: 100px;
+    width: 400px;
+}
+#start_button{
+  height:200px;
+  width: 200px;
+  border-radius: 100px;
+  font-size: 50px;
+  background-color: rgba(100,250,250,0.7);
+}
+
+
+</style>

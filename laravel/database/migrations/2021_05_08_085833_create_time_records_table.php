@@ -16,8 +16,9 @@ class CreateTimeRecordsTable extends Migration
         Schema::create('time_records', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->dateTime('start_time');
-            $table->dateTime('finish_time');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('finish_time')->nullable();
+            $table->string('state');
 
             //外部キー制約
             $table->foreignId('user_id')

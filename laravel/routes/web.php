@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/record', function () {
     return view('record');
 })->name('record');
 
+
 //Controllerに繋げるためのルート
 Route::middleware(['auth:sanctum', 'verified'])->post('/task_send','HomeController@task_send')
 ->name('task_send');
@@ -68,8 +69,20 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/back_category_register',
 Route::middleware(['auth:sanctum', 'verified'])->get('/measurement', 'MeasurementController@measurement')
 ->name('measurement');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/measurement1', 'MeasurementController@measurement')
+->name('measurement1');
+
 Route::middleware(['auth:sanctum', 'verified'])->post('/measurement_send', 'MeasurementController@measurement_send')
 ->name('measurement_send');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/measure_record', 'MeasurementController@measure_record')
+->name('measure_record');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/measure_record3', 'MeasurementController@measure_record3')
+->name('measure_record3');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/measurement2', 'MeasurementController@measurement2')
+->name('measurement2');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/task_edit/{id}', 'TaskEditController@task_edit')
 ->name('task_edit');

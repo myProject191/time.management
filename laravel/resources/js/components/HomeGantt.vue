@@ -4,7 +4,13 @@
       <div id="trContent" ref="trContent"  v-on:click="stopEvent">
         <p>タスクを登録</p>
         <label>カテゴリー名</label>
-        <input type="text" v-model="category"></input><br>
+
+        <input type="text" v-model="category"></input><br> 
+
+        <!-- <select v-model="selected">
+          <option v-for="task in tasks" v-bind:value="task.name" v-model="category">{{ task.name }}</option>
+        </select> -->
+
         <label>開始時間：</label>
         <input type="datetime-local" v-model="start_time"></input><br>
         <label>終了時間：</label>
@@ -236,6 +242,7 @@ export default {
             start_time: this.start_time,
             finish_time: this.finish_time,
         };
+        console.log(category_name2)
         axios.post('/task_send', params)
               window.location.href = "/home"
             // .then(function(response){
