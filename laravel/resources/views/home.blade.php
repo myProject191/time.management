@@ -25,15 +25,15 @@
             <!-- カテゴリーの追加をする -->
 
                 <div class="editBar">
-                                        @if($errors->any())
-                                            <div class="alert alert-danger">
-	                                            <ul>
-	                                                @foreach ($errors->all() as $error)
-	                                                    <li>{{ $error }}</li>
-	                                                @endforeach
-	                                            </ul>
-	                                        </div>
-                                            @endif
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     
                     <div class="dropdown_tasks">
                         <button class="dropbtn_tasks" id="dropbtn_tasks"><span id="taskTriangle">▶︎</span>タスクを追加</button>
@@ -69,18 +69,6 @@
                                         <div class="category1">
                                             <label for="category_name">カテゴリーを追加：</label>
                                             <input type="text" name="category_name">
-                                        </div>
-                                        <div class="color_set">
-                                            <label for="color">色を選択：</label>
-                                            <select name="color" id="color">
-                                                <option value="red">Red</option>
-                                                <option value="orange">Orange</option>
-                                                <option value="yellow">Yellow</option>
-                                                <option value="green">Green</option>
-                                                <option value="blue">Blue</option>
-                                                <option value="indigo">Indigo</option>
-                                                <option value="purple">Purple</option>
-                                            </select>
                                         </div>
                                         <input type="submit" value="send" class="send">
                                     </form>

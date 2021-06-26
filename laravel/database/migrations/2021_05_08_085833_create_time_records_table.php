@@ -18,7 +18,6 @@ class CreateTimeRecordsTable extends Migration
             $table->timestamps();
             $table->dateTime('start_time')->nullable();
             $table->dateTime('finish_time')->nullable();
-            $table->string('state');
 
             //外部キー制約
             $table->foreignId('user_id')

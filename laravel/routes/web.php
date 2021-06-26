@@ -87,6 +87,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/measurement2', 'Measureme
 Route::middleware(['auth:sanctum', 'verified'])->get('/task_edit/{id}', 'TaskEditController@task_edit')
 ->name('task_edit');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/record_edit/{id}', 'TimeRecordController@record_edit')
+->name('record_edit');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/record_delete', 'TimeRecordController@record_delete')
+->name('record_delete');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/record_edit_done', 'TimeRecordController@record_edit_done')
+->name('record_edit_done');
+
 Route::middleware(['auth:sanctum', 'verified'])->post('/task_edit_done', 'TaskEditController@task_edit_done')
 ->name('task_edit_done');
 

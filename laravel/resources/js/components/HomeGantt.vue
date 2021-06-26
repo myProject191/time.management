@@ -5,7 +5,7 @@
         <p>タスクを登録</p>
         <label>カテゴリー名</label>
 
-        <input type="text" v-model="category"></input><br> 
+        <input type="text" v-model="category"></input><br>
 
         <!-- <select v-model="selected">
           <option v-for="task in tasks" v-bind:value="task.name" v-model="category">{{ task.name }}</option>
@@ -154,7 +154,7 @@ export default {
     delete_1: function(){
       const task_id_2 = this.taskId
       axios.post('/task_delete_2',{
-        delete_task_id: task_id_2 
+        delete_task_id: task_id_2
       })
       window.location.href = "/home"
     },

@@ -45,14 +45,32 @@ class HomeController extends Controller
         $user_id = Auth::id();
         $category_id = Category::where('name',$request->category_name2)->value('id');
 
-        $task = new Task;
-        $task->start_time = $request->input('start_time');
-        $task->finish_time = $request->input('finish_time');
-        $task->category_id = $category_id;
-        $task->user_id = $user_id;
-        $task->save();
+        $validator = Validator::make($request->all(), [
+            'start_time' => 'bail|required',
+            'finish_time' => 'bail|required',
+        ]);
 
-        return redirect('/home');
+        $message = [
+            'start_time.required' =>'開始時間を記入してください',
+            'finish_time.required' =>'終了時間を記入してください',
+        ];
+
+        if($validator->passes()){
+
+            $task = new Task;
+            $task->start_time = $request->input('start_time');
+            $task->finish_time = $request->input('finish_time');
+            $task->category_id = $category_id;
+            $task->user_id = $user_id;
+            $task->save();
+    
+            return redirect('/home');
+        }
+        if($validator->fails()){
+            return redirect('home')
+                ->withErrors($message)
+                ->withInput();
+        }
 
     }
 
@@ -72,31 +90,23 @@ class HomeController extends Controller
 
     }
 
-    // public function category_register(Request $request){
-    //     $user_id = Auth::id();
-
-    //     $category = new Category;
-    //     $category->name = $request->input('category_name');
-    //     $category->user_id = $user_id;
-    //     $category->save();
-
-    //     return redirect('/home');
-    // }
-
     public function category_register(Request $request){
 
         $user_id = Auth::id();
         $category_all = Category::where('user_id',$user_id)->pluck('name');
 
+        // $validator = Validator::make($request->all(), [
+        //     'category_name' => [
+        //         'required',
+        //         Rule::notIn($category_all),
+        //     ],
+        // ]);
         $validator = Validator::make($request->all(), [
-            'category_name' => [
-                'required',
-                Rule::notIn($category_all),
-            ],
+            'category_name' => 'bail|required|unique:categories,name'
         ]);
         $message = [
-            'category_name.required' => 'カテゴリーを記入してください'
-            // 'category_name.notIn' => 'カテゴリーが重複しています'
+            'category_name.required' => 'カテゴリーを記入してください',
+            'category_name.unique' => 'カテゴリーが重複しています'
         ];
 
         if($validator->passes()){

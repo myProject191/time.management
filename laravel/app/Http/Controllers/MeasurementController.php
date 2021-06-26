@@ -36,7 +36,6 @@ class MeasurementController extends Controller
 
         $time_record = new TimeRecord;
         $time_record->user_id = $user_id;
-        $time_record->state = 'Active';
         $time_record->start_time = Carbon::now();
         $time_record->category_id = $category_id;
         $time_record->save();

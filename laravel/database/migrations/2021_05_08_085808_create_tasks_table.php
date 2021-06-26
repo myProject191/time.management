@@ -18,8 +18,7 @@ class CreateTasksTable extends Migration
             $table->timestamps();
             $table->dateTime('start_time');
             $table->dateTime('finish_time');
-            
-            //外部キー制約
+            //外部キー
             $table->foreignId('user_id')
                   ->references('id')
                   ->on('users')
