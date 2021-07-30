@@ -12,12 +12,17 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/style.css') }}">
 
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" type="text/javascript"></script>
+
     </head>
+
+
     <body class="font-sans antialiased">
         <x-jet-banner />
 
@@ -42,5 +47,10 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script src="{{ mix('js/stopwatch.js') }}"></script>
+        <script src="{{ mix('js/pulldown.js') }}"></script>
     </body>
+
+
 </html>
